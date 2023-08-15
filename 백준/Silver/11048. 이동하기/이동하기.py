@@ -12,4 +12,4 @@ for i in range(1, n+1):
     for j in range(1, m+1):
         miro[i][j] += max(miro[i-1][j], miro[i][j-1], miro[i-1][j-1])
 
-print(max(miro[n]))
+print(miro[n][m])
