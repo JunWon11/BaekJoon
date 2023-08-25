@@ -3,7 +3,7 @@ from copy import deepcopy
 import sys
 input = sys.stdin.readline
 
-def bfs(x, y):
+def bfs(x, y, graph, visited):
     q = deque()
     q.append((x, y))
     while q:
@@ -15,21 +15,6 @@ def bfs(x, y):
         for i in range(4):
             nx, ny = x+dx[i], y+dy[i]
             if 0 <= nx < n and 0 <= ny < n and graph[nx][ny] == c and visited[nx][ny] == 0:
-                    q.append((nx, ny))
-    return 1
-
-def sbfs(x, y):
-    q = deque()
-    q.append((x, y))
-    while q:
-        v = q.popleft()
-        x, y = v
-        c = sgraph[x][y]
-        sgraph[x][y] = 0
-        svisited[x][y] = 1
-        for i in range(4):
-            nx, ny = x+dx[i], y+dy[i]
-            if 0 <= nx < n and 0 <= ny < n and sgraph[nx][ny] == c and svisited[nx][ny] == 0:
                     q.append((nx, ny))
     return 1
 
@@ -54,12 +39,12 @@ ccnt = 0
 for i in range(n):
     for j in range(n):
         if graph[i][j] != 0:
-            cnt += bfs(i, j)
+            cnt += bfs(i, j, graph, visited)
 
 for i in range(n):
     for j in range(n):
         if sgraph[i][j] != 0:
-            ccnt += sbfs(i, j)
+            ccnt += bfs(i, j, sgraph, svisited)
 
 print(cnt, end=' ')
 print(ccnt)
