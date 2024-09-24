@@ -1,22 +1,17 @@
 #include <iostream>
-using namespace std;
-int main()
-{
-	int n, cnt = 0, min = 10000;
-	cin >> n;
-	for (int i = 0;i<1667;i++)
-	{
-		for (int j = 0; j<1001; j++)
-		{
-			if (n == 3 * i + 5 * j)
-			{
-				cnt = i + j;
-				min = (cnt < min) ? cnt : min;
-			}
-		}
+#include <algorithm>
+int main(void) {
+	int n, dp[5001];
+	std::cin >> n;
+	for (int i = 0; i <= n; i++)
+		dp[i] = 5001;
+	dp[3] = 1;
+	dp[5] = 1;
+	for (int i = 6; i <= n; i++) {
+		dp[i] = std::min(dp[i - 3] + 1, dp[i - 5] + 1);
 	}
-	if (min == 10000)
-		min = -1;
-	cout << min;
-	return 0;
+	if (dp[n] >= 5001)std::cout << -1;
+	else std::cout << dp[n];
+
+	return (0);
 }
